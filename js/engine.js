@@ -9,7 +9,7 @@
  * drawn but that is not the case. What's really happening is the entire "scene"
  * is being drawn over and over, presenting the illusion of animation.
  *
- * This engine makes the canvas' context (ctx) object globally available to make 
+ * This engine makes the canvas' context (ctx) object globally available to make
  * writing app.js a little simpler to work with.
  */
 
@@ -67,6 +67,18 @@ var Engine = (function(global) {
         lastTime = Date.now();
         main();
     }
+    function checkCollisions() {
+      // If there is an enemies who is on the same row with and
+      // occupy the same space as the player does
+      if (allEnemies.some((enemy) => {
+        return enemy.row === player.row
+                            && (player.x >= enemy.x && player.x <= enemy.x + 70
+                            || enemy.x >= player.x && enemy.x <= player.x + 70);
+      })) {
+        // then the game is over
+        allEnemies.forEach((enemy) => { enemy.speed = 0; });
+      }
+    }
 
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
@@ -79,7 +91,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -117,7 +129,7 @@ var Engine = (function(global) {
             numRows = 6,
             numCols = 5,
             row, col;
-        
+
         // Before drawing, clear existing canvas
         ctx.clearRect(0,0,canvas.width,canvas.height)
 
@@ -161,7 +173,7 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+
     }
 
     /* Go ahead and load all of the images we know we're going to need to

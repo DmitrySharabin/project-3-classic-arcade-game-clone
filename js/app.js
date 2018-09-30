@@ -48,14 +48,14 @@ class Enemy {
 // This class requires an update(), render() and
 // a handleInput() method.
 class Player {
-  constructor() {
+  constructor(character) {
     this.col = 2;
     this.row = 5;
     this.x = this.col * 101;
     this.y = this.row * 83 - 23;
     // The image/sprite for our player, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/char-boy.png';
+    this.sprite = character;
   }
 
   // Draw the player on the screen, required method for game
@@ -93,7 +93,7 @@ class Player {
         if(this.row < 5) { this.row += 1; }
     }
   }
-  
+
   // Return player into his initial position
   reset() {
     this.col = 2;
@@ -111,7 +111,7 @@ for(let enemy = 1; enemy <= 3; enemy++) {
 }
 
 // Place the player object in a variable called player
-const player = new Player();
+const player = new Player('images/char-cat-girl.png');
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -124,4 +124,12 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+});
+
+// This listens for mouse clicks on the character board
+// and changes player character accordingly
+document.querySelector('.character-board').addEventListener('click', (e) => {
+  if(e.target.nodeName === 'IMG') {
+    player.sprite = e.target.attributes[0].nodeValue; // src attribute of image
+  }
 });

@@ -44,22 +44,28 @@ header {
   cursor: pointer;
   background: url(../images/Selector.png) no-repeat;
 }
+
+/* Styling stats panel  */
 .stats {
   position: relative;
   top: -50px;
   display: flex;
   justify-content: center;
+  text-align: left;
   width: 505px;
   margin: 0 auto;
   cursor: default;
 }
 
 .score {
+  width: 200px;
   margin: 0;
 }
 
 .timer {
-  margin: 0 5em;
+  width: 200px;
+  margin: 0;
+  padding-left: 50px;
 }
 
 /* Styling Reset Button */

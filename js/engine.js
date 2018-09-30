@@ -173,6 +173,8 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
+      minSpeed = 1;
+      maxSpeed = 5;
       allEnemies.forEach((enemy) => { enemy.reset(); });
       player.reset();
     }

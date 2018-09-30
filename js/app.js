@@ -33,14 +33,19 @@ class Enemy {
 
       // If enemy's off the screen
       if(this.x >= 505) {
-        // place it to the left of the screen at random position
-        this.x = -101 - Math.random() * 100;
-        // at random row
-        this.row = Math.floor(Math.random() * 3 + 1);
-        this.y = this.row * 83 - 23;
-        // and randomly change its speed
-        this.speed = Math.random() * 5 + 1;
+        this.reset();
       }
+    }
+
+    // Return enemy into its initial position
+    reset() {
+      // Place it to the left of the screen at random position
+      this.x = -101 - Math.random() * 100;
+      // at random row
+      this.row = Math.floor(Math.random() * 3 + 1);
+      this.y = this.row * 83 - 23;
+      // and randomly set its speed
+      this.speed = Math.random() * 5 + 1;
     }
 }
 

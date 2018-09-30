@@ -68,15 +68,15 @@ var Engine = (function(global) {
         main();
     }
     function checkCollisions() {
-      // If there is an enemies who is on the same row with and
-      // occupy the same space as the player does
+      // If there is an enemies who is on the same row with the player and
+      // occupies the same space as the player does
       if (allEnemies.some((enemy) => {
         return enemy.row === player.row
                             && (player.x >= enemy.x && player.x <= enemy.x + 70
                             || enemy.x >= player.x && enemy.x <= player.x + 70);
       })) {
-        // then the game is over
-        allEnemies.forEach((enemy) => { enemy.speed = 0; });
+        // then reset the game
+        reset();
       }
     }
 
@@ -173,7 +173,8 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-
+      allEnemies.forEach((enemy) => { enemy.reset(); });
+      player.reset();
     }
 
     /* Go ahead and load all of the images we know we're going to need to

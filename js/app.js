@@ -114,13 +114,19 @@ class Player {
         timerField.textContent = time;
       }, 1000);
     }
-    // The player cannot move off the screen
+
+    // The player cannot move off the screen and move through the rocks
     switch (direction) {
       case 'left':
-        if(this.col > 0) { this.col -= 1; }
+        if(this.col > 0 && !allRocks.some(rock => {
+          return rock.row === this.row && rock.col === this.col - 1;
+        })) { this.col -= 1; } // To the left of the player there is no rock
         break;
       case 'up':
-        if(this.row > 0) {
+        if(this.row > 0 && !allRocks.some(rock => {
+          return rock.row === this.row - 1 && rock.col === this.col;
+        })) {
+          // Above the player there is no rock
           this.row -= 1;
           // If player wins
           if (this.row === 0) {
@@ -135,15 +141,21 @@ class Player {
               });
               // Reset gems
               resetGems();
+              // Reset rocks
+              resetRocks();
             }, 100);
           }
         }
         break;
       case 'right':
-        if(this.col < 4) { this.col += 1; }
+        if(this.col < 4 && !allRocks.some(rock => {
+          return rock.row === this.row && rock.col === this.col + 1;
+        })) { this.col += 1; } // To the right of the player there is no rock
         break;
       case 'down':
-        if(this.row < 5) { this.row += 1; }
+        if(this.row < 5 && !allRocks.some(rock => {
+          return rock.row === this.row + 1 && rock.col === this.col;
+        })) { this.row += 1; } // Below the player there is no rock
     }
     // If there is a gem
     allGems.forEach(gem => {
@@ -214,9 +226,37 @@ class Gem {
   }
 }
 
+class Rock {
+  constructor() {
+    // Pick randomly rock's position in the row
+    this.col = Math.floor(Math.random() * 5);
+    // and in the column
+    this.row = Math.floor(Math.random() * 3 + 1);
+    this.x = this.col * 101;
+    this.y = this.row * 83 - 23;
+    this.sprite = 'images/Rock.png';
+  }
+
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
+
+  reset() {
+    this.col = Math.floor(Math.random() * 5);
+    this.row = Math.floor(Math.random() * 3 + 1);
+    this.x = this.col * 101;
+    this.y = this.row * 83 - 23;
+  }
+}
+
 // Reset all gems
 const resetGems = function() {
   allGems.forEach(gem => gem.reset());
+}
+
+// Reset all rocks
+const resetRocks = function() {
+  allRocks.forEach(rock => rock.reset());
 }
 
 // Reset game
@@ -232,6 +272,7 @@ const resetGame = function() {
   minSpeed = 1;
   maxSpeed = 5;
   allEnemies.forEach(enemy => enemy.reset());
+  resetRocks();
   player.reset();
 }
 
@@ -240,6 +281,12 @@ const resetGame = function() {
 const allGems = [];
 for(let row = 1; row <= 3; row++) {
   allGems.push(new Gem(row));
+}
+
+// Place all rock objects in an array called allRocks
+const allRocks = [];
+for(let rock = 1; rock <= 2; rock++) {
+  allRocks.push(new Rock());
 }
 
 // Place all enemy objects in an array called allEnemies

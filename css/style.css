@@ -51,16 +51,19 @@ header {
   justify-content: center;
   width: 505px;
   margin: 0 auto;
+  cursor: default;
 }
 
 .score {
   margin: 0;
-  cursor: default;
+}
+
+.timer {
+  margin: 0 5em;
 }
 
 /* Styling Reset Button */
 .reset-button {
-  margin: 0 0 0 10em;
   width: 1em;
   height: 1em;
   cursor: pointer;

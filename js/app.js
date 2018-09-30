@@ -8,6 +8,13 @@ let gemsCollected = 0; // Number of collected gems
 // Get access to the DOM element where the score is stored
 const score = document.querySelector('.score');
 
+// Show if timer is on (game has started)
+let isTimerOn = false;
+const timerField = document.querySelector('.timer');
+// Time the user spent to win the game (in seconds)
+let numOfSeconds = 0;
+let timerId;
+
 // Enemies our player must avoid
 class Enemy {
     constructor() {
@@ -85,6 +92,28 @@ class Player {
   }
 
   handleInput(direction) {
+    // At first move start the timer
+    if (!isTimerOn) {
+      isTimerOn = true;
+      timerId = setInterval(() => {
+        // Count time every second
+        numOfSeconds = numOfSeconds + 1;
+
+        // Transform time to format mm:ss
+        let numOfMinutes = Math.floor(numOfSeconds / 60);
+        if (numOfMinutes < 10) {
+          numOfMinutes = `0${numOfMinutes}`;
+        }
+        let time = `${numOfMinutes}:`;
+        if ((numOfSeconds % 60) < 10) {
+          time += '0';
+        }
+        time = `${time}${(numOfSeconds % 60)}`;
+
+        // Show it to the user
+        timerField.textContent = time;
+      }, 1000);
+    }
     // The player cannot move off the screen
     switch (direction) {
       case 'left':
@@ -192,6 +221,11 @@ const resetGems = function() {
 
 // Reset game
 const resetGame = function() {
+  // Stop the timer and reset all game parameters
+  clearInterval(timerId);
+  isTimerOn = false;
+  timerField.textContent = '00:00';
+  numOfSeconds = 0;
   resetGems();
   gemsCollected = 0;
   score.textContent = `Gems Collected: ${gemsCollected}`;
@@ -251,11 +285,11 @@ document.querySelector('.clear-stats').addEventListener('click', () => {
 });
 
 // Save game statistics to Local Storage
-function saveStatistics(character, gems) {
+function saveStatistics(character, gems, time) {
   // Read data from Local Storage
   const statistics = JSON.parse(localStorage.getItem('froggerGame') || '[]');
   // Add new data to statistics
-  statistics.push({character, gems});
+  statistics.push({character, gems, time});
   // Save updated data back to Local Storage
   localStorage.setItem('froggerGame', JSON.stringify(statistics));
 }
@@ -277,7 +311,7 @@ function showStatistics() {
     // If there is no data yet, tell the user about that
     const row = document.createElement('tr');
     const td = document.createElement('td');
-    td.setAttribute('colspan', 3);
+    td.setAttribute('colspan', 4);
     td.textContent = 'There is no attempts yet!';
 
     row.appendChild(td);
@@ -298,6 +332,10 @@ function showStatistics() {
 
       td = document.createElement('td');
       td.textContent = stats[i].gems;
+      row.appendChild(td);
+
+      td = document.createElement('td');
+      td.textContent = stats[i].time;
       row.appendChild(td);
 
       fragment.appendChild(row);

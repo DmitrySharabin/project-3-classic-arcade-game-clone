@@ -76,7 +76,7 @@ var Engine = (function(global) {
                             || enemy.x >= player.x && enemy.x <= player.x + 70);
       })) {
         // then reset the game
-        saveStatistics(player.name, gemsCollected);
+        saveStatistics(player.name, gemsCollected, timerField.textContent);
         reset();
       }
     }

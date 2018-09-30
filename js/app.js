@@ -86,9 +86,17 @@ class Player {
       case 'up':
         if(this.row > 0) {
           this.row -= 1;
+          // If player wins
           if (this.row === 0) {
             setTimeout(() => {
+              // return him into his initial position
               this.reset();
+              // increase every enemy's speed
+              minSpeed += 1;
+              maxSpeed += 1;
+              allEnemies.forEach((enemy) => {
+                enemy.speed = Math.random() * (maxSpeed - minSpeed + 1) + minSpeed;
+              });
             }, 100);
           }
         }

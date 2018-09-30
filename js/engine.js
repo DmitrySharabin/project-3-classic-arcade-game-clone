@@ -178,13 +178,7 @@ var Engine = (function(global) {
      */
     function reset() {
       showStatistics();
-      minSpeed = 1;
-      maxSpeed = 5;
-      resetGems();
-      gemsCollected = 0;
-      score.textContent = `Gems Collected: ${gemsCollected}`;
-      allEnemies.forEach(enemy => enemy.reset());
-      player.reset();
+      resetGame();
     }
 
     /* Go ahead and load all of the images we know we're going to need to

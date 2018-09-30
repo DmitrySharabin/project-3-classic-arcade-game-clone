@@ -44,11 +44,26 @@ header {
   cursor: pointer;
   background: url(../images/Selector.png) no-repeat;
 }
+.stats {
+  position: relative;
+  top: -50px;
+  display: flex;
+  justify-content: center;
+  width: 505px;
+  margin: 0 auto;
+}
 
 .score {
-  position: relative;
-  top: -65px;
+  margin: 0;
   cursor: default;
+}
+
+/* Styling Reset Button */
+.reset-button {
+  margin: 0 0 0 10em;
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
 }
 
 canvas {

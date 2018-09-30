@@ -190,6 +190,17 @@ const resetGems = function() {
   allGems.forEach(gem => gem.reset());
 }
 
+// Reset game
+const resetGame = function() {
+  resetGems();
+  gemsCollected = 0;
+  score.textContent = `Gems Collected: ${gemsCollected}`;
+  minSpeed = 1;
+  maxSpeed = 5;
+  allEnemies.forEach(enemy => enemy.reset());
+  player.reset();
+}
+
 // Now instantiate your objects.
 // Place all gem objects in an array called allGems
 const allGems = [];
@@ -227,6 +238,9 @@ document.querySelector('.character-board').addEventListener('click', (e) => {
     player.name = e.target.attributes[2].nodeValue; // title attribute of image
   }
 });
+
+// This listens for mouse clicks on the Reset Button
+document.querySelector('.reset-button').addEventListener('click', resetGame);
 
 // This listens for mouse clicks on the Clear Stats Button
 document.querySelector('.clear-stats').addEventListener('click', () => {

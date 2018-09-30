@@ -27,6 +27,12 @@ body {
   height: 180px;
 }
 
+.character-board,
+canvas,
+footer {
+  min-width: 570px;
+}
+
 header {
   position: relative;
   text-transform: uppercase;

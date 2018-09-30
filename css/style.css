@@ -30,6 +30,7 @@ header {
   position: relative;
   text-transform: uppercase;
   color: #515ca4;
+  z-index: 100;
 }
 
 .character-board img {
@@ -37,10 +38,9 @@ header {
   top: -50px;
 }
 
-/* See https://stackoverflow.com/questions/8693733/how-to-give-outer-glow-to-an-object-in-a-transparent-png-using-css3 */
 .character-board img:hover {
   cursor: pointer;
-  filter: drop-shadow(0 0 10px rgba(255, 200, 0, 0.8));
+  background: url(../images/Selector.png) no-repeat;
 }
 
 canvas {

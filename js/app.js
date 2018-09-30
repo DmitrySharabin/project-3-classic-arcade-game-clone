@@ -97,6 +97,8 @@ class Player {
               allEnemies.forEach((enemy) => {
                 enemy.speed = Math.random() * (maxSpeed - minSpeed + 1) + minSpeed;
               });
+              // Reset gems
+              resetGems();
             }, 100);
           }
         }
@@ -107,6 +109,13 @@ class Player {
       case 'down':
         if(this.row < 5) { this.row += 1; }
     }
+    // If there is a gem
+    allGems.forEach(gem => {
+      if(gem.row === player.row && gem.col === player.col) {
+        // collect it
+        gem.collect();
+      }
+    });
   }
 
   // Return player into his initial position
@@ -118,7 +127,67 @@ class Player {
   }
 }
 
+class Gem {
+  constructor(row) {
+    // Pick randomly gem's position in the row
+    this.col = Math.floor(Math.random() * 5);
+    this.row = row;
+    this.x = this.col * 101;
+    this.y = this.row * 83 - 23;
+    // Pick randomly gem's color
+    switch(Math.floor(Math.random() * 3)) {
+      case 0:
+        this.sprite = 'images/Gem Blue.png';
+        break;
+      case 1:
+        this.sprite = 'images/Gem Green.png';
+        break;
+      case 2:
+      this.sprite = 'images/Gem Orange.png';
+    }
+    // Shows whether gem is collected
+    this.isCollected = false;
+  }
+
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
+
+  collect() {
+    // The gem is collected
+    this.isCollected = true;
+  }
+
+  reset() {
+    this.col = Math.floor(Math.random() * 5);
+    this.x = this.col * 101;
+    switch(Math.floor(Math.random() * 3)) {
+      case 0:
+        this.sprite = 'images/Gem Blue.png';
+        break;
+      case 1:
+        this.sprite = 'images/Gem Green.png';
+        break;
+      case 2:
+      this.sprite = 'images/Gem Orange.png';
+    }
+    // The gem is not collected
+    this.isCollected = false;
+  }
+}
+
+// Reset all gems
+const resetGems = function() {
+  allGems.forEach(gem => gem.reset());
+}
+
 // Now instantiate your objects.
+// Place all gem objects in an array called allGems
+const allGems = [];
+for(let row = 1; row <= 3; row++) {
+  allGems.push(new Gem(row));
+}
+
 // Place all enemy objects in an array called allEnemies
 const allEnemies = [];
 for(let enemy = 1; enemy <= 3; enemy++) {

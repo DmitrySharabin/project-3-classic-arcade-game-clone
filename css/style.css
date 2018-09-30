@@ -119,3 +119,21 @@ canvas {
   cursor: pointer;
   float: right;
 }
+
+/* Styling footer */
+footer {
+  font-family: Helvetica, Arial, sans-serif;
+  margin: 3em auto;
+}
+/* Social Links */
+.social-links {
+  display: flex;
+  justify-content: center;
+}
+
+.social-icon {
+  margin: 0 1em;
+  width: 2em;
+  height: 2em;
+  fill: #333;
+}

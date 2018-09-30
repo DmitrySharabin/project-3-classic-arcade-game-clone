@@ -1,5 +1,7 @@
 'use strict';
 
+let minSpeed = 1; // Minimal enemy's speed
+let maxSpeed = 5; // Maximal enemy's speed
 // Enemies our player must avoid
 class Enemy {
     constructor() {
@@ -8,10 +10,10 @@ class Enemy {
       // Place enemy off the screen (to the left) at random position
       this.x = -101 - Math.random() * (100);
       // at random row
-      this.row = Math.floor(Math.random() * 3 + 1);;
+      this.row = Math.floor(Math.random() * 3 + 1);
       this.y = this.row * 83 - 23;
       // and randomly set its speed
-      this.speed = Math.random() * 5 + 1;;
+      this.speed = Math.random() * (maxSpeed - minSpeed + 1) + minSpeed;
 
       // The image/sprite for our enemies, this uses
       // a helper we've provided to easily load images
@@ -45,7 +47,7 @@ class Enemy {
       this.row = Math.floor(Math.random() * 3 + 1);
       this.y = this.row * 83 - 23;
       // and randomly set its speed
-      this.speed = Math.random() * 5 + 1;
+      this.speed = Math.random() * (maxSpeed - minSpeed + 1) + minSpeed;
     }
 }
 

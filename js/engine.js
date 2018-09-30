@@ -179,6 +179,8 @@ var Engine = (function(global) {
       minSpeed = 1;
       maxSpeed = 5;
       resetGems();
+      gemsCollected = 0;
+      score.textContent = `Gems Collected: ${gemsCollected}`;
       allEnemies.forEach(enemy => enemy.reset());
       player.reset();
     }

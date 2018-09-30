@@ -31,6 +31,7 @@ header {
   text-transform: uppercase;
   color: #515ca4;
   z-index: 100;
+  cursor: default;
 }
 
 .character-board img {
@@ -43,6 +44,13 @@ header {
   background: url(../images/Selector.png) no-repeat;
 }
 
+.score {
+  position: relative;
+  top: -65px;
+  color: #222;
+  cursor: default;
+}
+
 canvas {
-  margin-top: 150px;
+  margin-top: 170px;
 }

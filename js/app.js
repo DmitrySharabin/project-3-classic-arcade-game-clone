@@ -2,6 +2,12 @@
 
 let minSpeed = 1; // Minimal enemy's speed
 let maxSpeed = 5; // Maximal enemy's speed
+
+let gemsCollected = 0; // Number of collected gems
+
+// Get access to the DOM element where the score is stored
+const score = document.querySelector('.score');
+
 // Enemies our player must avoid
 class Enemy {
     constructor() {
@@ -114,6 +120,8 @@ class Player {
       if(gem.row === player.row && gem.col === player.col) {
         // collect it
         gem.collect();
+        gemsCollected += 1;
+        score.textContent = `Gems Collected: ${gemsCollected}`;
       }
     });
   }

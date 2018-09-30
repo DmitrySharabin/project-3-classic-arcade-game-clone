@@ -94,7 +94,7 @@ class Player {
               // increase every enemy's speed
               minSpeed += 1;
               maxSpeed += 1;
-              allEnemies.forEach((enemy) => {
+              allEnemies.forEach(enemy => {
                 enemy.speed = Math.random() * (maxSpeed - minSpeed + 1) + minSpeed;
               });
               // Reset gems

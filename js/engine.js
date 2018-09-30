@@ -70,7 +70,7 @@ var Engine = (function(global) {
     function checkCollisions() {
       // If there is an enemies who is on the same row with the player and
       // occupies the same space as the player does
-      if (allEnemies.some((enemy) => {
+      if (allEnemies.some(enemy => {
         return enemy.row === player.row
                             && (player.x >= enemy.x && player.x <= enemy.x + 70
                             || enemy.x >= player.x && enemy.x <= player.x + 70);
@@ -179,7 +179,7 @@ var Engine = (function(global) {
       minSpeed = 1;
       maxSpeed = 5;
       resetGems();
-      allEnemies.forEach((enemy) => { enemy.reset(); });
+      allEnemies.forEach(enemy => enemy.reset());
       player.reset();
     }
 

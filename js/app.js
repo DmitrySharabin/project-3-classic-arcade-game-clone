@@ -111,7 +111,7 @@ for(let enemy = 1; enemy <= 3; enemy++) {
 }
 
 // Place the player object in a variable called player
-const player = new Player('images/char-cat-girl.png');
+const player = new Player('images/char-boy.png');
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

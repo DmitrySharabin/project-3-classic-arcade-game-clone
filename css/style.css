@@ -1,3 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Aclonica');
+
+html {
+  font-family: 'Aclonica', Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
 body {
-    text-align: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.character-board {
+  position: absolute;
+  width: 100%;
+  height: 180px;
+}
+
+header {
+  position: relative;
+  text-transform: uppercase;
+  color: #515ca4;
+}
+
+.character-board img {
+  position: relative;
+  top: -50px;
+}
+
+/* See https://stackoverflow.com/questions/8693733/how-to-give-outer-glow-to-an-object-in-a-transparent-png-using-css3 */
+.character-board img:hover {
+  cursor: pointer;
+  filter: drop-shadow(0 0 10px rgba(255, 200, 0, 0.8));
+}
+
+canvas {
+  margin-top: 150px;
 }

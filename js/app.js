@@ -61,11 +61,12 @@ class Enemy {
 // This class requires an update(), render() and
 // a handleInput() method.
 class Player {
-  constructor(character) {
+  constructor(character, name) {
     this.col = 2;
     this.row = 5;
     this.x = this.col * 101;
     this.y = this.row * 83 - 23;
+    this.name = name;
     // The image/sprite for our player, this uses
     // a helper we've provided to easily load images
     this.sprite = character;
@@ -203,7 +204,7 @@ for(let enemy = 1; enemy <= 3; enemy++) {
 }
 
 // Place the player object in a variable called player
-const player = new Player('images/char-boy.png');
+const player = new Player('images/char-boy.png', 'Boy');
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -223,5 +224,71 @@ document.addEventListener('keyup', function(e) {
 document.querySelector('.character-board').addEventListener('click', (e) => {
   if(e.target.nodeName === 'IMG') {
     player.sprite = e.target.attributes[0].nodeValue; // src attribute of image
+    player.name = e.target.attributes[2].nodeValue; // title attribute of image
   }
 });
+
+// This listens for mouse clicks on the Clear Stats Button
+document.querySelector('.clear-stats').addEventListener('click', () => {
+  // Remove stats from Local Storage
+  localStorage.removeItem('froggerGame');
+  // Update info on the screen
+  showStatistics();
+});
+
+// Save game statistics to Local Storage
+function saveStatistics(character, gems) {
+  // Read data from Local Storage
+  const statistics = JSON.parse(localStorage.getItem('froggerGame') || '[]');
+  // Add new data to statistics
+  statistics.push({character, gems});
+  // Save updated data back to Local Storage
+  localStorage.setItem('froggerGame', JSON.stringify(statistics));
+}
+
+// Read game statistics from Local Storage and show it to the user
+function showStatistics() {
+  const fragment = document.createDocumentFragment();
+  const attempts = document.querySelector('.attempts-stats > tbody');
+
+  // Remove previous data from the table
+  while (attempts.firstElementChild) {
+    attempts.removeChild(attempts.firstElementChild);
+  }
+
+  // Read data from Local Storage
+  const stats = JSON.parse(localStorage.getItem('froggerGame') || '[]');
+
+  if (!stats.length) {
+    // If there is no data yet, tell the user about that
+    const row = document.createElement('tr');
+    const td = document.createElement('td');
+    td.setAttribute('colspan', 3);
+    td.textContent = 'There is no attempts yet!';
+
+    row.appendChild(td);
+
+    fragment.appendChild(row);
+  } else {
+    // Construct rows with data
+    for (let i = 0; i < stats.length; i++) {
+      const row = document.createElement('tr');
+
+      let td = document.createElement('td');
+      td.textContent = `#${i + 1}`;
+      row.appendChild(td);
+
+      td = document.createElement('td');
+      td.textContent = stats[i].character;
+      row.appendChild(td);
+
+      td = document.createElement('td');
+      td.textContent = stats[i].gems;
+      row.appendChild(td);
+
+      fragment.appendChild(row);
+    }
+  }
+  // and add them to the table with attempts statistics
+  attempts.appendChild(fragment);
+}

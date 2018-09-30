@@ -3,6 +3,7 @@
 html {
   font-family: 'Aclonica', Helvetica, Arial, sans-serif;
   box-sizing: border-box;
+  color: #222;
 }
 
 *,
@@ -47,10 +48,50 @@ header {
 .score {
   position: relative;
   top: -65px;
-  color: #222;
   cursor: default;
 }
 
 canvas {
   margin-top: 170px;
+}
+
+/* Styling table with attempts results */
+.attempts-stats {
+  margin: 10px auto;
+  border-collapse: collapse;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.attempts-stats tr {
+  height: 2em;
+}
+
+.attempts-stats caption {
+  font-style: italic;
+  text-align: left;
+  font-size: 0.8em;
+  margin: 0 0 5px;
+}
+
+.attempts-stats caption:before {
+  content: 'Table. ';
+  font-style: normal;
+}
+
+.attempts-stats th {
+  padding: 0 3vmin 0 0;
+  border-bottom: 1px solid currentColor;
+}
+
+.attempts-stats tbody tr:nth-child(even) {
+  background: #eee;
+}
+
+/* Styling Clear Stats button */
+.clear-stats {
+  fill: currentColor;
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+  float: right;
 }

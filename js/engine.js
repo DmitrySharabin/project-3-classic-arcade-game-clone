@@ -76,6 +76,7 @@ var Engine = (function(global) {
                             || enemy.x >= player.x && enemy.x <= player.x + 70);
       })) {
         // then reset the game
+        saveStatistics(player.name, gemsCollected);
         reset();
       }
     }
@@ -176,6 +177,7 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
+      showStatistics();
       minSpeed = 1;
       maxSpeed = 5;
       resetGems();

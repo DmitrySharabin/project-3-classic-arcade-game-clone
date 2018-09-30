@@ -307,7 +307,7 @@ document.addEventListener('keydown', function(e) {
         39: 'right',
         40: 'down'
     };
-    e.preventDefault();
+    if(allowedKeys.hasOwnProperty(e.keyCode)) { e.preventDefault(); }
     player.handleInput(allowedKeys[e.keyCode]);
 });
 

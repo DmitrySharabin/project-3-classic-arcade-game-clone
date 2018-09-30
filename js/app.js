@@ -11,15 +11,13 @@ const score = document.querySelector('.score');
 // Show if timer is on (game has started)
 let isTimerOn = false;
 const timerField = document.querySelector('.timer');
-// Time the user spent to win the game (in seconds)
+// Time the user spent to collect the gems (in seconds)
 let numOfSeconds = 0;
 let timerId;
 
 // Enemies our player must avoid
 class Enemy {
     constructor() {
-      // Variables applied to each of our instances go here
-
       // Place enemy off the screen (to the left) at random position
       this.x = -101 - Math.random() * (100);
       // at random row
@@ -28,17 +26,16 @@ class Enemy {
       // and randomly set its speed
       this.speed = Math.random() * (maxSpeed - minSpeed + 1) + minSpeed;
 
-      // The image/sprite for our enemies, this uses
-      // a helper we've provided to easily load images
+      // The image/sprite for our enemies
       this.sprite = 'images/enemy-bug.png';
     }
 
-    // Draw the enemy on the screen, required method for game
+    // Draw the enemy on the screen
     render() {
       ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
-    // Update the enemy's position, required method for game
+    // Update the enemy's position
     // Parameter: dt, a time delta between ticks
     update(dt) {
       // You should multiply any movement by the dt parameter
@@ -46,7 +43,7 @@ class Enemy {
       // all computers.
       this.x = this.x + this.speed;
 
-      // If enemy's off the screen
+      // If enemy's off the screen reset it
       if(this.x >= 505) {
         this.reset();
       }
@@ -64,9 +61,7 @@ class Enemy {
     }
 }
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+// Our player
 class Player {
   constructor(character, name) {
     this.col = 2;
@@ -74,18 +69,16 @@ class Player {
     this.x = this.col * 101;
     this.y = this.row * 83 - 23;
     this.name = name;
-    // The image/sprite for our player, this uses
-    // a helper we've provided to easily load images
+    // The image/sprite for our player
     this.sprite = character;
   }
 
-  // Draw the player on the screen, required method for game
+  // Draw the player on the screen
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
 
-  // Update the player's position, required method for game
-  // Parameter: dt, a time delta between ticks
+  // Update the player's position
   update(dt) {
     this.x = this.col * 101;
     this.y = this.row * 83 - 23;
@@ -163,6 +156,7 @@ class Player {
         // collect it
         gem.collect();
         gemsCollected += 1;
+        // and update info for the user
         score.textContent = `Gems Collected: ${gemsCollected}`;
       }
     });
@@ -199,6 +193,7 @@ class Gem {
     this.isCollected = false;
   }
 
+  // Draw the gem on the screen
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
@@ -208,6 +203,7 @@ class Gem {
     this.isCollected = true;
   }
 
+  // Place the gem into random position and pick randomly its color
   reset() {
     this.col = Math.floor(Math.random() * 5);
     this.x = this.col * 101;
@@ -234,13 +230,16 @@ class Rock {
     this.row = Math.floor(Math.random() * 3 + 1);
     this.x = this.col * 101;
     this.y = this.row * 83 - 23;
+    // The image/sprite for our rock
     this.sprite = 'images/Rock.png';
   }
 
+  // Draw the rock on the screen
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
 
+  // Place the rock into random position
   reset() {
     this.col = Math.floor(Math.random() * 5);
     this.row = Math.floor(Math.random() * 3 + 1);
@@ -276,7 +275,8 @@ const resetGame = function() {
   player.reset();
 }
 
-// Now instantiate your objects.
+// Instantiate objects
+
 // Place all gem objects in an array called allGems
 const allGems = [];
 for(let row = 1; row <= 3; row++) {
@@ -298,8 +298,8 @@ for(let enemy = 1; enemy <= 3; enemy++) {
 // Place the player object in a variable called player
 const player = new Player('images/char-boy.png', 'Boy');
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// This listens for key presses and sends the keys to the
+// Player.handleInput() method
 document.addEventListener('keydown', function(e) {
     var allowedKeys = {
         37: 'left',

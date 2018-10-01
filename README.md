@@ -54,7 +54,8 @@ The game stores the results of a user's attempts using browser's local storage.
 To clear the table use **Clear Stats** button ![Clear Results](screenshots/clear-results-button.png).
 
 ## Game Launch
-To start the game open file `index.html` in a browser.
+To start the game open file `index.html` in a browser or just follow
+[this](https://dmitrysharabin.github.io/project-3-classic-arcade-game-clone/) link.
 
 ## License
 The content of this repository is licensed under a [Creative Commons Attribution License](http://creativecommons.org/licenses/by/3.0/us/).
